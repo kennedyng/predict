@@ -15,10 +15,13 @@ app.use(cors());
 const neuralNetwork = new NeuralNetwork();
 
 app.post("/predict", async (req, res) => {
-  console.log(req.body);
-  neuralNetwork.train(trainData);
-  const personality = likely(req.body, neuralNetwork);
-  res.status(201).json(personality);
+  try {
+    neuralNetwork.train(trainData);
+    const result = likely(req.body, neuralNetwork);
+    res.status(201).json({ personality: result });
+  } catch (error) {
+    res.status(409);
+  }
 });
 
 app.listen(4040, () => {
