@@ -24,6 +24,6 @@ app.post("/predict", async (req, res) => {
   }
 });
 
-app.listen(4040, () => {
+app.listen(process.env.PORT || 4040, () => {
   console.log("server is running on port 4040");
 });
