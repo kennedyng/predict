@@ -7,7 +7,15 @@ const genderMap = {
   Male: 0,
 };
 
-const trainingDataSet = data.map((record) => {
+const personalityMap = {
+  serious: { serious: 1 },
+  lively: { lively: 1 },
+  dependable: { dependable: 1 },
+  responsible: { responsible: 1 },
+  extraverted: { extraverted: 1 },
+};
+
+const trainingDataSet = data.slice(0, 100).map((record) => {
   return {
     input: {
       gender: genderMap[record.Gender],
@@ -18,7 +26,7 @@ const trainingDataSet = data.map((record) => {
       agreeableness: record.agreeableness,
       extraversion: record.extraversion,
     },
-    output: record["Personality (Class label)"],
+    output: personalityMap[record["Personality (Class label)"]],
   };
 });
 

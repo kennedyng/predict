@@ -3,17 +3,24 @@ var bodyParser = require("body-parser");
 const { NeuralNetwork, recurrent, likely, utilities } = require("brain.js");
 const cors = require("cors");
 const fs = require("fs");
+const trainingDataSet = require("./trainingDataset");
 const app = express();
 
-const personalityClassfier = require("./neuro");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
 app.post("/predict", async (req, res) => {
   try {
-    const result = personalityClassfier.classify(req.body);
-    return res.status(201).json({ personality: result });
+    const network = new NeuralNetwork();
+    network.train(trainingDataSet, {
+      log: (error) => console.log(error),
+      iterations: 100,
+    });
+    const result = likely(req.body, network);
+    const prediction = network.run(req.body);
+
+    return res.status(201).json({ personality: result, prediction });
   } catch (error) {
     res.status(409);
   }
