@@ -1,5 +1,3 @@
-const fs = require("fs");
-
 const data = require("./train.json");
 
 const genderMap = {
@@ -15,7 +13,7 @@ const personalityMap = {
   extraverted: { extraverted: 1 },
 };
 
-const trainingDataSet = data.slice(0, 100).map((record) => {
+const trainingDataSet = data.slice(0, 250).map((record) => {
   return {
     input: {
       gender: genderMap[record.Gender],
