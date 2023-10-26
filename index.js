@@ -14,7 +14,7 @@ app.post("/predict", async (req, res) => {
     const config = {
       inputSize: 7,
       outputSize: 4,
-      hiddenLayers: [7, 4],
+      hiddenLayers: [4],
     };
 
     const network = new NeuralNetwork(config);
